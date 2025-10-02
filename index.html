@@ -215,33 +215,65 @@
                     <p class="text-lg text-gray-600">Llena este formulario y lo buscaremos en nuestro próximo viaje de compras.</p>
                 </div>
                 
-                <form action="https://formspree.io/f/xvgwaood" method="POST" class="grid md:grid-cols-2 gap-6">
-    <div>
-        <label for="nombre" class="block text-gray-700 font-medium mb-2">Nombre completo</label>
-        <input type="text" id="nombre" name="nombre" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-    </div>
+                <form id="productForm" action="https://formspree.io/f/xvgwaood" method="POST" class="grid md:grid-cols-2 gap-6">
 
-    <div>
-        <label for="telefono" class="block text-gray-700 font-medium mb-2">WhatsApp</label>
-        <input type="tel" id="telefono" name="telefono" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-    </div>
+  <div>
+    <label for="nombre" class="block text-gray-700 font-medium mb-2">Nombre completo</label>
+    <input type="text" id="nombre" name="nombre" required 
+           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+  </div>
 
-    <div class="md:col-span-2">
-        <label for="producto" class="block text-gray-700 font-medium mb-2">Producto que buscas</label>
-        <input type="text" id="producto" name="producto" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-    </div>
+  <div>
+    <label for="telefono" class="block text-gray-700 font-medium mb-2">WhatsApp</label>
+    <input type="tel" id="telefono" name="telefono" required 
+           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+  </div>
 
-    <div class="md:col-span-2">
-        <label for="detalles" class="block text-gray-700 font-medium mb-2">Detalles adicionales (talla, color, modelo, etc.)</label>
-        <textarea id="detalles" name="detalles" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
-    </div>
+  <div class="md:col-span-2">
+    <label for="producto" class="block text-gray-700 font-medium mb-2">Producto que buscas</label>
+    <input type="text" id="producto" name="producto" required 
+           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+  </div>
 
-    <div class="md:col-span-2">
-        <button type="submit" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition duration-300">
-            Enviar solicitud
-        </button>
-    </div>
+  <div class="md:col-span-2">
+    <label for="detalles" class="block text-gray-700 font-medium mb-2">Detalles adicionales (talla, color, modelo, etc.)</label>
+    <textarea id="detalles" name="detalles" rows="4" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+  </div>
+
+  <div class="md:col-span-2">
+    <button type="submit" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition duration-300">
+      Enviar solicitud
+    </button>
+  </div>
 </form>
+
+<!-- Script goes AFTER the form -->
+<script>
+document.getElementById("productForm").addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  const form = event.target;
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+      window.location.href = "gracias.html"; 
+    } else {
+      alert("Hubo un problema al enviar tu solicitud. Inténtalo otra vez.");
+    }
+  } catch (error) {
+    alert("Error de red. Inténtalo de nuevo.");
+  }
+});
+</script>
+
                         </button>
                     </div>
                 </form>
@@ -394,3 +426,4 @@
 </script>
 </body>
 </html>
+
